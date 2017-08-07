@@ -1,6 +1,17 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="com.masstudios.foreignrap">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <uses-feature
+        android:name="android.hardware.touchscreen"
+        android:required="false" />
+    <uses-feature
+        android:name="android.software.leanback"
+        android:required="true" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -8,6 +19,19 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Leanback">
 
-    </application>
+        <activity
+            android:name=".main.MainActivity"
+            android:banner="@drawable/ic_foreignrap"
+            android:icon="@drawable/ic_fire"
+            android:label="@string/app_name"
+            android:logo="@drawable/ic_foreignrap"
+            android:screenOrientation="landscape"
+            android:theme="@style/Theme.Leanback">
 
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LEANBACK_LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
 </manifest>
