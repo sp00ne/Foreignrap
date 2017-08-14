@@ -29,7 +29,9 @@ dependencies {
     provided 'javax.annotation:jsr250-api:1.0'
 
     compile 'com.squareup.okhttp3:okhttp:3.8.1'
-//    compile 'com.squareup.okio:okio:1.13.0'
+
+    compile 'com.jakewharton.timber:timber:4.5.1'
+
     compile 'com.squareup.retrofit2:retrofit:2.3.0'
     compile 'com.squareup.retrofit2:converter-gson:2.3.0'
 
