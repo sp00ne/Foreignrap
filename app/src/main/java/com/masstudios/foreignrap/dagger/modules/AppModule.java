@@ -15,10 +15,10 @@ import dagger.Provides;
  */
 
 @Module
-public class ApplicationModule {
+public class AppModule {
 	Application mApplication;
 
-	public ApplicationModule(Application application) {
+	public AppModule(Application application) {
 		mApplication = application;
 	}
 

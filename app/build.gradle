@@ -20,8 +20,17 @@ android {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
+
     compile 'com.android.support:leanback-v17:26.+'
+    compile 'com.google.code.gson:gson:2.8.1'
+
     compile "com.google.dagger:dagger:2.9"
     annotationProcessor "com.google.dagger:dagger-compiler:2.9"
     provided 'javax.annotation:jsr250-api:1.0'
+
+    compile 'com.squareup.okhttp3:okhttp:3.8.1'
+//    compile 'com.squareup.okio:okio:1.13.0'
+    compile 'com.squareup.retrofit2:retrofit:2.3.0'
+    compile 'com.squareup.retrofit2:converter-gson:2.3.0'
+
 }
