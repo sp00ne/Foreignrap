@@ -21,18 +21,31 @@ android {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
 
-    compile 'com.android.support:leanback-v17:26.+'
-    compile 'com.google.code.gson:gson:2.8.1'
+    String retrofitVersion = "2.3.0"
+    String okHttpVersion = "3.8.1"
+    String daggerVersion = "2.9"
+    String butterknifeVersion = "8.8.1"
 
-    compile "com.google.dagger:dagger:2.9"
-    annotationProcessor "com.google.dagger:dagger-compiler:2.9"
-    provided 'javax.annotation:jsr250-api:1.0'
+    // Support libs
+    compile "com.android.support:leanback-v17:26.+"
 
-    compile 'com.squareup.okhttp3:okhttp:3.8.1'
+    // Logging
+    compile "com.jakewharton.timber:timber:4.5.1"
 
-    compile 'com.jakewharton.timber:timber:4.5.1'
+    // Network
+    compile "com.squareup.retrofit2:retrofit:${retrofitVersion}"
+    compile "com.squareup.retrofit2:converter-moshi:${retrofitVersion}"
+    compile "com.squareup.retrofit2:adapter-rxjava:${retrofitVersion}"
+    compile "com.squareup.okhttp3:okhttp:${okHttpVersion}"
+    compile "com.squareup.okhttp3:logging-interceptor:${okHttpVersion}"
+    compile "com.github.bumptech.glide:glide:3.7.0"
+    compile "com.google.code.gson:gson:2.8.1"
 
-    compile 'com.squareup.retrofit2:retrofit:2.3.0'
-    compile 'com.squareup.retrofit2:converter-gson:2.3.0'
+    // Dependency injection
+    compile "com.google.dagger:dagger:${daggerVersion}"
+    annotationProcessor "com.google.dagger:dagger-compiler:${daggerVersion}"
+    provided "javax.annotation:jsr250-api:1.0"
 
+    compile "com.jakewharton:butterknife:${butterknifeVersion}"
+    annotationProcessor "com.jakewharton:butterknife-compiler:${butterknifeVersion}"
 }

@@ -3,8 +3,8 @@ package com.masstudios.foreignrap;
 import android.app.Application;
 
 import com.masstudios.foreignrap.config.Constants;
-import com.masstudios.foreignrap.dagger.components.DaggerNetComponent;
-import com.masstudios.foreignrap.dagger.components.NetComponent;
+import com.masstudios.foreignrap.dagger.components.ApplicationComponent;
+import com.masstudios.foreignrap.dagger.components.DaggerApplicationComponent;
 import com.masstudios.foreignrap.dagger.modules.AppModule;
 import com.masstudios.foreignrap.dagger.modules.NetModule;
 import timber.log.Timber;
@@ -18,18 +18,21 @@ import timber.log.Timber;
 
 public class App extends Application {
 
-	private NetComponent mNetComponent;
+	private ApplicationComponent mApplicationComponent;
 
 	@Override
 	public void onCreate() {
+//		AndroidIn
 		super.onCreate();
 
 		initTimber();
 
-		mNetComponent = DaggerNetComponent.builder()
+		mApplicationComponent = DaggerApplicationComponent.builder()
 				.appModule(new AppModule(this))
 				.netModule(new NetModule(Constants.BASE_URL))
 				.build();
+
+		mApplicationComponent.inject(this);
 	}
 
 	private void initTimber() {
@@ -38,7 +41,7 @@ public class App extends Application {
 		}
 	}
 
-	public NetComponent getNetComponent() {
-		return mNetComponent;
+	public ApplicationComponent getNetComponent() {
+		return mApplicationComponent;
 	}
 }

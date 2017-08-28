@@ -1,4 +1,4 @@
-package com.masstudios.foreignrap.data;
+package com.masstudios.foreignrap.data.models;
 
 import android.os.Parcel;
 import android.os.Parcelable;

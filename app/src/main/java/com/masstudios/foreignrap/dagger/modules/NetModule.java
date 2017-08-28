@@ -12,12 +12,13 @@ import android.preference.PreferenceManager;
 import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.squareup.moshi.Moshi;
 import dagger.Module;
 import dagger.Provides;
 import okhttp3.Cache;
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.converter.moshi.MoshiConverterFactory;
 
 /**
  * The http client dagger module - contains all the extensions used by dagger
@@ -28,6 +29,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 @Module
 public class NetModule {
+
+	public static final String VIDEO_PLAYLIST_URL = "http://www.foreignrap.com/data.json";
 
 	private static final long DISK_CACHE_SIZE_BYTES = 50 * 1024 * 1024; // 50MB
 
@@ -75,9 +78,9 @@ public class NetModule {
 
 	@Provides
 	@Singleton
-	Retrofit provideRetrofit(Gson gson, OkHttpClient okHttpClient) {
+	Retrofit provideRetrofit(Moshi moshi, OkHttpClient okHttpClient) {
 		return new Retrofit.Builder()
-				.addConverterFactory(GsonConverterFactory.create(gson))
+				.addConverterFactory(MoshiConverterFactory.create(moshi))
 				.baseUrl(mBaseUrl)
 				.client(okHttpClient)
 				.build();

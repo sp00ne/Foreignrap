@@ -2,9 +2,11 @@ package com.masstudios.foreignrap.dagger.components;
 
 import javax.inject.Singleton;
 
+import com.masstudios.foreignrap.App;
+import com.masstudios.foreignrap.dagger.AppScope;
 import com.masstudios.foreignrap.dagger.modules.AppModule;
 import com.masstudios.foreignrap.dagger.modules.NetModule;
-import com.masstudios.foreignrap.main.MainActivity;
+import com.masstudios.foreignrap.ui.main.MainActivity;
 import dagger.Component;
 
 /**
@@ -14,8 +16,11 @@ import dagger.Component;
  * @since 2017-08-14
  */
 
+@AppScope
 @Singleton
 @Component(modules = { AppModule.class, NetModule.class })
-public interface NetComponent {
+public interface ApplicationComponent {
+	void inject(App app);
+
 	void inject(MainActivity activity);
 }
