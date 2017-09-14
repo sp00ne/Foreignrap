@@ -3,7 +3,7 @@ package com.masstudios.foreignrap.dagger.modules;
 import java.io.File;
 import java.util.concurrent.TimeUnit;
 
-import javax.inject.Singleton;
+import javax.inject.Named;
 
 import android.app.Application;
 import android.content.SharedPreferences;
@@ -12,13 +12,15 @@ import android.preference.PreferenceManager;
 import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.squareup.moshi.Moshi;
+import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
+import com.masstudios.foreignrap.dagger.AppScope;
+import com.masstudios.foreignrap.data.api.ForeignRapApi;
 import dagger.Module;
 import dagger.Provides;
 import okhttp3.Cache;
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
-import retrofit2.converter.moshi.MoshiConverterFactory;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
  * The http client dagger module - contains all the extensions used by dagger
@@ -43,21 +45,21 @@ public class NetModule {
 
 	// Dagger will only look for methods annotated with @Provides
 	@Provides
-	@Singleton
+	@AppScope
 	// Application reference must come from AppModule.class
 	SharedPreferences providesSharedPreferences(Application application) {
 		return PreferenceManager.getDefaultSharedPreferences(application);
 	}
 
 	@Provides
-	@Singleton
+	@AppScope
 	Cache provideOkHttpCache(Application app) {
 		File cacheDir = new File(app.getCacheDir(), "http");
 		return new Cache(cacheDir, DISK_CACHE_SIZE_BYTES);
 	}
 
 	@Provides
-	@Singleton
+	@AppScope
 	Gson provideGson() {
 		GsonBuilder gsonBuilder = new GsonBuilder();
 		gsonBuilder.setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES);
@@ -66,7 +68,7 @@ public class NetModule {
 	}
 
 	@Provides
-	@Singleton
+	@AppScope
 	OkHttpClient provideOkHttpClient(Cache cache) {
 		return new OkHttpClient.Builder()
 				.readTimeout(1, TimeUnit.MINUTES)
@@ -77,12 +79,20 @@ public class NetModule {
 	}
 
 	@Provides
-	@Singleton
-	Retrofit provideRetrofit(Moshi moshi, OkHttpClient okHttpClient) {
+	@Named("foreignRap")
+	@AppScope
+	Retrofit provideRetrofit(Gson gson, OkHttpClient okHttpClient) {
 		return new Retrofit.Builder()
-				.addConverterFactory(MoshiConverterFactory.create(moshi))
+				.addConverterFactory(GsonConverterFactory.create(gson))
+				.addCallAdapterFactory(RxJava2CallAdapterFactory.create())
 				.baseUrl(mBaseUrl)
 				.client(okHttpClient)
 				.build();
+	}
+
+	@Provides
+	@AppScope
+	ForeignRapApi provideApi(@Named("foreignRap") Retrofit restAdapter) {
+		return restAdapter.create(ForeignRapApi.class);
 	}
 }

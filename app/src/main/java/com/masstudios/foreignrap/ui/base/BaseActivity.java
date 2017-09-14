@@ -9,7 +9,7 @@ import android.support.annotation.TransitionRes;
 import com.masstudios.foreignrap.R;
 
 /**
- * The activity from which all other ativities extends. Contains base interactions
+ * The activity from which all other activities extends. Contains base interactions
  *
  * @author mofa
  * @since 2017-08-28
@@ -19,7 +19,7 @@ public class BaseActivity extends Activity {
 	@Override
 	protected void onCreate(@Nullable Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_main);
+		setContentView(R.layout.activity_base);
 	}
 
 	public void setFragment(Fragment fragment, @TransitionRes int fragmentTransition) {

@@ -19,11 +19,12 @@ import timber.log.Timber;
 public class App extends Application {
 
 	private ApplicationComponent mApplicationComponent;
+	private static App instance;
 
 	@Override
 	public void onCreate() {
-//		AndroidIn
 		super.onCreate();
+		instance = this;
 
 		initTimber();
 
@@ -41,7 +42,11 @@ public class App extends Application {
 		}
 	}
 
-	public ApplicationComponent getNetComponent() {
+	public static App getInstance() {
+		return instance;
+	}
+
+	public ApplicationComponent getAppComponent() {
 		return mApplicationComponent;
 	}
 }

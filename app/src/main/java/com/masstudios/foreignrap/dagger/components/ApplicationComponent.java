@@ -6,7 +6,7 @@ import com.masstudios.foreignrap.App;
 import com.masstudios.foreignrap.dagger.AppScope;
 import com.masstudios.foreignrap.dagger.modules.AppModule;
 import com.masstudios.foreignrap.dagger.modules.NetModule;
-import com.masstudios.foreignrap.ui.main.MainActivity;
+import com.masstudios.foreignrap.ui.main.MainFragment;
 import dagger.Component;
 
 /**
@@ -22,5 +22,5 @@ import dagger.Component;
 public interface ApplicationComponent {
 	void inject(App app);
 
-	void inject(MainActivity activity);
+	void inject(MainFragment fragment);
 }
